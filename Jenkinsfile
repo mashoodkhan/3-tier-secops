@@ -21,12 +21,12 @@ pipeline {
                 }
             }
         }
-    }
+
         stage("Workspace cleanup") {
             steps {
                 script {
                     cleanWs()
-                     sh 'Workspace Clean up Successful'
+                    sh 'Workspace Clean up Successful'
                 }
             }
         }
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script {
                     trivy_scan()
-                     sh 'Trivy Scanning Successful'
+                    sh 'Trivy Scanning Successful'
                 }
             }
         }
@@ -120,6 +120,7 @@ pipeline {
     //         }
     //     }
     } // closes stages
+
     // post {
     //     success {
     //         archiveArtifacts artifacts: '*.xml', followSymlinks: false
@@ -128,5 +129,5 @@ pipeline {
     //             string(name: 'BACKEND_DOCKER_TAG', value: "${params.BACKEND_DOCKER_TAG}")
     //         ]
     //     }
-     }
+    // }
 }
