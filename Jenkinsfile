@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     cleanWs()
-                    sh 'Workspace Clean up Successful'
+                    sh 'echo Workspace Clean up Successful'
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     trivy_scan()
-                    sh 'Trivy Scanning Successful'
+                    sh 'echo Trivy Scanning Successful'
                 }
             }
         }
