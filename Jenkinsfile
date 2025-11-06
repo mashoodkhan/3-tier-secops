@@ -22,6 +22,7 @@ pipeline {
     //         }
     //     }
 
+    stages {
         stage("Workspace cleanup") {
             steps {
                 script {
@@ -116,7 +117,7 @@ pipeline {
     //             }
     //         }
     //     }
-    }
+    } // closes stages
     post {
         success {
             archiveArtifacts artifacts: '*.xml', followSymlinks: false
