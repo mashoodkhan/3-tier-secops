@@ -21,8 +21,7 @@ pipeline {
                 }
             }
         }
-
-    stages {
+    }
         stage("Workspace cleanup") {
             steps {
                 script {
