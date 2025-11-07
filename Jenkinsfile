@@ -28,6 +28,7 @@ pipeline {
                 script {
                     cleanWs()
                     sh 'echo WORKSPACE CLEANUP SUCCESS'
+                    sh 'echo ============================================================'
                 }
             }
         }
@@ -37,6 +38,7 @@ pipeline {
                 script {
                     checkOut("https://github.com/mashoodkhan/3-tier-secops.git", "main")
                     sh 'echo CODE CHECKOUT SUCCESS'
+                    sh 'echo ============================================================'
                 }
             }
         }
@@ -46,6 +48,7 @@ pipeline {
                 script {
                     trivy_scan()
                     sh 'echo FILE SYSTEM SCAN SUCCESSFUL!'
+                    sh 'echo ============================================================'
                 }
             }
         }
@@ -63,6 +66,7 @@ pipeline {
                 script{
                     sonarqube_analysis("Sonar","3-tier-secops","3-tier-secops")
                      sh "echo SONAR CODE ANAYLYSIS PASSED!"
+                     sh 'echo ============================================================'
                 }
             }
         }
@@ -72,6 +76,7 @@ pipeline {
                 script{
                     sonarqube_code_quality()
                      sh "echo SONAR QUALITY GATES PASSED!"
+                     sh 'echo ============================================================'
                 }
             }
         }
@@ -84,6 +89,7 @@ pipeline {
                             dir("Automations"){
                                 sh "bash updatebackendnew.sh"
                                 sh "echo UPDATED BACKEND ENVs"
+                                sh 'echo ============================================================'
                             }
                         }
                     }
@@ -95,6 +101,7 @@ pipeline {
                             dir("Automations"){
                                 sh "bash updatefrontendnew.sh"
                                  sh "echo UPDATED FRONTEND ENVs"
+                                 sh 'echo ============================================================'
                             }
                         }
                     }
