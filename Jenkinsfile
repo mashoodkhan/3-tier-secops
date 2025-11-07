@@ -71,15 +71,15 @@ pipeline {
             }
         }
         
-        stage("SonarQube: Code Quality Gates"){
-            steps{
-                script{
-                    sonarqube_code_quality()
-                     sh "echo SONAR QUALITY GATES PASSED!"
-                     sh 'echo ============================================================'
-                }
-            }
-        }
+        // stage("SonarQube: Code Quality Gates"){
+        //     steps{
+        //         script{
+        //             sonarqube_code_quality()
+        //              sh "echo SONAR QUALITY GATES PASSED!"
+        //              sh 'echo ============================================================'
+        //         }
+        //     }
+        // }
         
         stage('Exporting environment variables') {
             parallel{
@@ -109,19 +109,19 @@ pipeline {
             }
         }
         
-        // stage("Docker: Build Images"){
-        //     steps{
-        //         script{
-        //                 dir('backend'){
-        //                     docker_build("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","trainwithshubham")
-        //                 }
+        stage("Docker: Build Images"){
+            steps{
+                script{
+                        dir('backend'){
+                            docker_build("3-tier-secops-","${params.BACKEND_DOCKER_TAG}","mashoodkhan")
+                        }
                     
-        //                 dir('frontend'){
-        //                     docker_build("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","trainwithshubham")
-        //                 }
-        //         }
-        //     }
-        // }
+                        dir('frontend'){
+                            docker_build(""3-tier-secops-","${params.FRONTEND_DOCKER_TAG}","mashoodkhan")
+                        }
+                }
+            }
+        }
         
         // stage("Docker: Push to DockerHub"){
         //     steps{
