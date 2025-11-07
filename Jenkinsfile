@@ -74,29 +74,29 @@ pipeline {
             }
         }
         
-        // stage('Exporting environment variables') {
-        //     parallel{
-        //         stage("Backend env setup"){
-        //             steps {
-        //                 script{
-        //                     dir("Automations"){
-        //                         sh "bash updatebackendnew.sh"
-        //                     }
-        //                 }
-        //             }
-        //         }
+        stage('Exporting environment variables') {
+            parallel{
+                stage("Backend env setup"){
+                    steps {
+                        script{
+                            dir("Automations"){
+                                sh "bash updatebackendnew.sh"
+                            }
+                        }
+                    }
+                }
                 
-        //         stage("Frontend env setup"){
-        //             steps {
-        //                 script{
-        //                     dir("Automations"){
-        //                         sh "bash updatefrontendnew.sh"
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+                stage("Frontend env setup"){
+                    steps {
+                        script{
+                            dir("Automations"){
+                                sh "bash updatefrontendnew.sh"
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
         // stage("Docker: Build Images"){
         //     steps{
