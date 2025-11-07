@@ -123,14 +123,14 @@ pipeline {
             }
         }
         
-        // stage("Docker: Push to DockerHub"){
-        //     steps{
-        //         script{
-        //             docker_push("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","trainwithshubham") 
-        //             docker_push("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","trainwithshubham")
-        //         }
-        //     }
-        // }
+        stage("Docker: Push to DockerHub"){
+            steps{
+                script{
+                    dockerPush("3-tier-secops","${params.BACKEND_DOCKER_TAG}","trainwithshubham") 
+                    dockerPush("3-tier-secops","${params.FRONTEND_DOCKER_TAG}","trainwithshubham")
+                }
+            }
+        }
 
     } // closes stages
 
