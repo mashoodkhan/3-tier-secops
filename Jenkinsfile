@@ -112,27 +112,12 @@ pipeline {
         stage("Docker: Build Images"){
             steps{
                 script{
-                        dir('backend'){
-                            dockerbuild("3-tier-secops","${params.BACKEND_DOCKER_TAG}","mashoodkhan")
-                        }
-                    
-                        dir('frontend'){
-                            dockerbuild("3-tier-secops","${params.FRONTEND_DOCKER_TAG}","mashoodkhan")
-                        }
-                }
-            }
-        }
-        
-        stage("Docker: Push to DockerHub"){
-            steps{
-                script{
-                    dockerPush("3-tier-secops","${params.BACKEND_DOCKER_TAG}","mashoodk") 
-                    dockerPush("3-tier-secops","${params.FRONTEND_DOCKER_TAG}","mashoodk")
-                }
-            }
-        }
+                       buildAndPushDocker("3-tier-secops", "${params.BACKEND_DOCKER_TAG}", "mashoodk", "backend")
+                       buildAndPushDocker("3-tier-secops", "${params.FRONTEND_DOCKER_TAG}", "mashoodk", "frontend")
 
-    } // closes stages
+                }
+            }
+        } // closes stages
 
     // post {
     //     success {
