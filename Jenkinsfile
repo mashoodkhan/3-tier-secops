@@ -117,7 +117,7 @@ pipeline {
                         }
                     
                         dir('frontend'){
-                            docker_build(""3-tier-secops-","${params.FRONTEND_DOCKER_TAG}","mashoodkhan")
+                            docker_build("3-tier-secops-","${params.FRONTEND_DOCKER_TAG}","mashoodkhan")
                         }
                 }
             }
