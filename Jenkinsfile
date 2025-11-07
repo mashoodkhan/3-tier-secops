@@ -48,7 +48,7 @@ pipeline {
                 script {
                     trivy_scan()
                     sh 'echo FILE SYSTEM SCAN SUCCESSFUL!'
-                   sh 'echo ====================='
+                    sh 'echo ====================='
                 }
             }
         }
@@ -65,7 +65,7 @@ pipeline {
             steps{
                 script{
                     sonarqube_analysis("Sonar","3-tier-secops","3-tier-secops")
-                     sh "echo SONAR CODE ANAYLYSIS PASSED!"
+                    sh "echo SONAR CODE ANALYSIS PASSED!"
                     sh 'echo ====================='
                 }
             }
@@ -75,7 +75,7 @@ pipeline {
         //     steps{
         //         script{
         //             sonarqube_code_quality()
-        //              sh "echo SONAR QUALITY GATES PASSED!"
+        //             sh "echo SONAR QUALITY GATES PASSED!"
         //             sh 'echo ====================='
         //         }
         //     }
@@ -100,7 +100,7 @@ pipeline {
                         script{
                             dir("Automations"){
                                 sh "bash updatefrontendnew.sh"
-                                 sh "echo UPDATED FRONTEND ENVs"
+                                sh "echo UPDATED FRONTEND ENVs"
                                 sh 'echo ====================='
                             }
                         }
@@ -109,15 +109,16 @@ pipeline {
             }
         }
         
-        stage("Docker: Build Images"){
+        stage("Docker: Build & Push Images"){
             steps{
                 script{
-                       buildAndPushDocker("3-tier-secops", "${params.BACKEND_DOCKER_TAG}", "mashoodk", "backend")
-                       buildAndPushDocker("3-tier-secops", "${params.FRONTEND_DOCKER_TAG}", "mashoodk", "frontend")
-
+                    buildAndPushDocker("3-tier-secops", "${params.BACKEND_DOCKER_TAG}", "mashoodk", "backend")
+                    buildAndPushDocker("3-tier-secops", "${params.FRONTEND_DOCKER_TAG}", "mashoodk", "frontend")
                 }
             }
-        } // closes stages
+        }
+
+    } // closes stages
 
     // post {
     //     success {
@@ -128,4 +129,5 @@ pipeline {
     //         ]
     //     }
     // }
-}
+
+} // closes pipeline
