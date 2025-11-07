@@ -113,11 +113,11 @@ pipeline {
             steps{
                 script{
                         dir('backend'){
-                            dockerbuild("3-tier-secops-","${params.BACKEND_DOCKER_TAG}","mashoodkhan")
+                            dockerbuild("3-tier-secops","${params.BACKEND_DOCKER_TAG}","mashoodkhan")
                         }
                     
                         dir('frontend'){
-                            dockerbuild("3-tier-secops-","${params.FRONTEND_DOCKER_TAG}","mashoodkhan")
+                            dockerbuild("3-tier-secops","${params.FRONTEND_DOCKER_TAG}","mashoodkhan")
                         }
                 }
             }
