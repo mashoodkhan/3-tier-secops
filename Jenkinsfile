@@ -28,7 +28,7 @@ pipeline {
                 script {
                     cleanWs()
                     sh 'echo WORKSPACE CLEANUP SUCCESS'
-                    sh 'echo ============================================================'
+                    sh 'echo ====================='
                 }
             }
         }
@@ -48,7 +48,7 @@ pipeline {
                 script {
                     trivy_scan()
                     sh 'echo FILE SYSTEM SCAN SUCCESSFUL!'
-                    sh 'echo ============================================================'
+                   sh 'echo ====================='
                 }
             }
         }
@@ -66,7 +66,7 @@ pipeline {
                 script{
                     sonarqube_analysis("Sonar","3-tier-secops","3-tier-secops")
                      sh "echo SONAR CODE ANAYLYSIS PASSED!"
-                     sh 'echo ============================================================'
+                    sh 'echo ====================='
                 }
             }
         }
@@ -76,7 +76,7 @@ pipeline {
         //         script{
         //             sonarqube_code_quality()
         //              sh "echo SONAR QUALITY GATES PASSED!"
-        //              sh 'echo ============================================================'
+        //             sh 'echo ====================='
         //         }
         //     }
         // }
@@ -89,7 +89,7 @@ pipeline {
                             dir("Automations"){
                                 sh "bash updatebackendnew.sh"
                                 sh "echo UPDATED BACKEND ENVs"
-                                sh 'echo ============================================================'
+                                sh 'echo ====================='
                             }
                         }
                     }
@@ -101,7 +101,7 @@ pipeline {
                             dir("Automations"){
                                 sh "bash updatefrontendnew.sh"
                                  sh "echo UPDATED FRONTEND ENVs"
-                                 sh 'echo ============================================================'
+                                sh 'echo ====================='
                             }
                         }
                     }
@@ -126,8 +126,8 @@ pipeline {
         stage("Docker: Push to DockerHub"){
             steps{
                 script{
-                    dockerPush("3-tier-secops","${params.BACKEND_DOCKER_TAG}","trainwithshubham") 
-                    dockerPush("3-tier-secops","${params.FRONTEND_DOCKER_TAG}","trainwithshubham")
+                    dockerPush("3-tier-secops","${params.BACKEND_DOCKER_TAG}","mashoodk/3-tier-secops") 
+                    dockerPush("3-tier-secops","${params.FRONTEND_DOCKER_TAG}","mashoodk/3-tier-secops")
                 }
             }
         }
