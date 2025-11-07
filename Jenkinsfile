@@ -126,8 +126,8 @@ pipeline {
         stage("Docker: Push to DockerHub"){
             steps{
                 script{
-                    dockerPush("3-tier-secops","${params.BACKEND_DOCKER_TAG}","mashoodk/3-tier-secops") 
-                    dockerPush("3-tier-secops","${params.FRONTEND_DOCKER_TAG}","mashoodk/3-tier-secops")
+                    dockerPush("3-tier-secops","${params.BACKEND_DOCKER_TAG}","mashoodk") 
+                    dockerPush("3-tier-secops","${params.FRONTEND_DOCKER_TAG}","mashoodk")
                 }
             }
         }
