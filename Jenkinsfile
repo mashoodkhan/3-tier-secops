@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     cleanWs()
-                    sh 'echo Workspace Clean up Successful'
+                    sh 'echo WORKSPACE CLEANUP SUCCESS'
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     checkOut("https://github.com/mashoodkhan/3-tier-secops.git", "main")
-                    sh 'echo Checkout Successful'
+                    sh 'echo CODE CHECKOUT SUCCESS'
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     trivy_scan()
-                    sh 'echo Trivy Scanning Successful'
+                    sh 'echo FILE SYSTEM SCAN SUCCESSFUL!'
                 }
             }
         }
@@ -62,6 +62,7 @@ pipeline {
             steps{
                 script{
                     sonarqube_analysis("Sonar","3-tier-secops","3-tier-secops")
+                     sh "echo SONAR CODE ANAYLYSIS PASSED!"
                 }
             }
         }
@@ -70,6 +71,7 @@ pipeline {
             steps{
                 script{
                     sonarqube_code_quality()
+                     sh "echo SONAR QUALITY GATES PASSED!"
                 }
             }
         }
@@ -81,6 +83,7 @@ pipeline {
                         script{
                             dir("Automations"){
                                 sh "bash updatebackendnew.sh"
+                                sh "echo UPDATED BACKEND ENVs"
                             }
                         }
                     }
@@ -91,6 +94,7 @@ pipeline {
                         script{
                             dir("Automations"){
                                 sh "bash updatefrontendnew.sh"
+                                 sh "echo UPDATED FRONTEND ENVs"
                             }
                         }
                     }
