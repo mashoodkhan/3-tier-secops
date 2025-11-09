@@ -135,18 +135,6 @@ pipeline {
                     }
                 }
             }
-        }
-
-            
-            steps {
-                script {
-                    buildAndPushDocker("backend-app", "${params.BACKEND_DOCKER_TAG}", "123456789012", "us-east-1", "backend")
-                    buildAndPushDocker("frontend-app", "${params.FRONTEND_DOCKER_TAG}", "123456789012", "us-east-1", "frontend")
-                }
-            }
-        }
-
-
     } // closes stages
 
     // post {
