@@ -103,7 +103,7 @@ pipeline {
         stage("Docker: Build & Push Images to ECR") {
             parallel {
                 stage("Backend Image") {
-                    steps {
+                    steps { 
                         script {
                             buildAndPushImageToECR("3-tier-secops", "${params.BACKEND_DOCKER_TAG}", "321262206944", "us-east-2", "backend")
                         }
