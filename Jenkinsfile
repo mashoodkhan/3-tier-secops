@@ -109,7 +109,7 @@ pipeline {
             }
         }
         
-        stage("Docker: Build & Push Images"){
+        stage("Docker: Build & Push Images to Docker Hub"){
             steps{
                 script{
                     buildAndPushDocker("3-tier-secops", "${params.BACKEND_DOCKER_TAG}", "mashoodk", "backend")
@@ -117,6 +117,35 @@ pipeline {
                 }
             }
         }
+
+        stage("Docker: Build & Push Images to ECR") {
+            parallel {
+                stage("Backend Image") {
+                    steps {
+                        script {
+                            buildAndPushImageToECR("3-tier-secops", "${params.BACKEND_DOCKER_TAG}", "321262206944", "us-east-2", "backend")
+                        }
+                    }
+                }
+                stage("Frontend Image") {  
+                    steps {
+                        script {
+                            buildAndPushImageToECR("3-tier-secops", "${params.FRONTEND_DOCKER_TAG}", "321262206944", "us-east-2", "frontend")
+                        }
+                    }
+                }
+            }
+        }
+
+            
+            steps {
+                script {
+                    buildAndPushDocker("backend-app", "${params.BACKEND_DOCKER_TAG}", "123456789012", "us-east-1", "backend")
+                    buildAndPushDocker("frontend-app", "${params.FRONTEND_DOCKER_TAG}", "123456789012", "us-east-1", "frontend")
+                }
+            }
+        }
+
 
     } // closes stages
 
