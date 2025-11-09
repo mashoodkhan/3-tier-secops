@@ -1,4 +1,4 @@
-@Library('Shared') _
+@Library('Shared') _ 
 pipeline {
     agent any
     
@@ -11,7 +11,7 @@ pipeline {
         string(name: 'BACKEND_DOCKER_TAG', defaultValue: '', description: 'Setting docker image for latest push')
     }
 
-    stages { // <--- wrap all stages inside this block
+    stages {
 
         stage("Validate Parameters") {
             steps {
@@ -53,17 +53,9 @@ pipeline {
             }
         }
 
-        // stage("OWASP: Dependency check"){
-        //     steps{
-        //         script{
-        //             owasp_dependency()
-        //         }
-        //     }
-        // }
-        
-        stage("SonarQube: Code Analysis"){
-            steps{
-                script{
+        stage("SonarQube: Code Analysis") {
+            steps {
+                script {
                     sonarqube_analysis("Sonar","3-tier-secops","3-tier-secops")
                     sh "echo SONAR CODE ANALYSIS PASSED!"
                     sh 'echo ====================='
@@ -71,22 +63,12 @@ pipeline {
             }
         }
         
-        // stage("SonarQube: Code Quality Gates"){
-        //     steps{
-        //         script{
-        //             sonarqube_code_quality()
-        //             sh "echo SONAR QUALITY GATES PASSED!"
-        //             sh 'echo ====================='
-        //         }
-        //     }
-        // }
-        
         stage('Exporting environment variables') {
-            parallel{
-                stage("Backend env setup"){
+            parallel {
+                stage("Backend env setup") {
                     steps {
-                        script{
-                            dir("Automations"){
+                        script {
+                            dir("Automations") {
                                 sh "bash updatebackendnew.sh"
                                 sh "echo UPDATED BACKEND ENVs"
                                 sh 'echo ====================='
@@ -95,10 +77,10 @@ pipeline {
                     }
                 }
                 
-                stage("Frontend env setup"){
+                stage("Frontend env setup") {
                     steps {
-                        script{
-                            dir("Automations"){
+                        script {
+                            dir("Automations") {
                                 sh "bash updatefrontendnew.sh"
                                 sh "echo UPDATED FRONTEND ENVs"
                                 sh 'echo ====================='
@@ -109,9 +91,9 @@ pipeline {
             }
         }
         
-        stage("Docker: Build & Push Images to Docker Hub"){
-            steps{
-                script{
+        stage("Docker: Build & Push Images to Docker Hub") {
+            steps {
+                script {
                     buildAndPushDocker("3-tier-secops", "${params.BACKEND_DOCKER_TAG}", "mashoodk", "backend")
                     buildAndPushDocker("3-tier-secops", "${params.FRONTEND_DOCKER_TAG}", "mashoodk", "frontend")
                 }
@@ -135,16 +117,8 @@ pipeline {
                     }
                 }
             }
-    } // closes stages
+        }   //  closes ECR stage
 
-    // post {
-    //     success {
-    //         archiveArtifacts artifacts: '*.xml', followSymlinks: false
-    //         build job: "Wanderlust-CD", parameters: [
-    //             string(name: 'FRONTEND_DOCKER_TAG', value: "${params.FRONTEND_DOCKER_TAG}"),
-    //             string(name: 'BACKEND_DOCKER_TAG', value: "${params.BACKEND_DOCKER_TAG}")
-    //         ]
-    //     }
-    // }
+    } //  closes stages block
 
-} // closes pipeline
+} //  closes pipeline block
