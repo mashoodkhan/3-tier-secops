@@ -79,23 +79,23 @@ pipeline {
             }
         }
 
-        stage("Docker: Build & Push Images to ECR") {
-            parallel {
-                stage("Backend Image") {
-                    steps {
-                        script {
-                            buildAndPushImageToECR(ECR_REPO, params.BACKEND_DOCKER_TAG, AWS_ACCOUNT_ID, AWS_REGION, "backend")
-                        }
-                    }
-                }
-                stage("Frontend Image") {
-                    steps {
-                        script {
-                            buildAndPushImageToECR(ECR_REPO, params.FRONTEND_DOCKER_TAG, AWS_ACCOUNT_ID, AWS_REGION, "frontend")
-                        }
-                    }
-                }
-            }
-        }
+        // stage("Docker: Build & Push Images to ECR") {
+        //     parallel {
+        //         stage("Backend Image") {
+        //             steps {
+        //                 script {
+        //                     buildAndPushImageToECR(ECR_REPO, params.BACKEND_DOCKER_TAG, AWS_ACCOUNT_ID, AWS_REGION, "backend")
+        //                 }
+        //             }
+        //         }
+        //         stage("Frontend Image") {
+        //             steps {
+        //                 script {
+        //                     buildAndPushImageToECR(ECR_REPO, params.FRONTEND_DOCKER_TAG, AWS_ACCOUNT_ID, AWS_REGION, "frontend")
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
